@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Navbar from "../components/Navbar";
 
 const questions = [
   {
@@ -105,30 +106,12 @@ export default function Diagnostic() {
     <main style={{ minHeight: "100vh", background: "#FAF7F2", fontFamily: "'DM Sans', sans-serif" }}>
 
       {/* NAV */}
-      <nav style={{
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "18px 24px", borderBottom: "1px solid #E5E0D8",
-        background: "#FAF7F2", position: "sticky", top: 0, zIndex: 100,
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <svg width="28" height="28" viewBox="0 0 44 44" fill="none">
-            <circle cx="22" cy="22" r="22" fill="#FDF3E7"/>
-            <path d="M22 34 C22 34 22 20 22 16" stroke="#4BAA6A" strokeWidth="2" strokeLinecap="round"/>
-            <path d="M22 22 C22 22 17 19 15 15 C19 14 23 17 22 22Z" fill="#4BAA6A"/>
-            <path d="M22 19 C22 19 27 16 29 12 C25 11 21 14 22 19Z" fill="#6DC48A"/>
-            <path d="M22 26 C22 26 18 24 16 21 C20 20 23 23 22 26Z" fill="#4BAA6A" opacity="0.7"/>
-            <circle cx="22" cy="34" r="2.5" fill="#E8894A"/>
-            <path d="M17 33 Q22 30 27 33" stroke="#E8894A" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-          </svg>
-          <span style={{ fontSize: "16px", fontWeight: 500, color: "#1A1714" }}>BankSaathi</span>
-        </div>
-        <span style={{ fontSize: "13px", color: "#4A4540" }}>Sawaal {step + 1} / 4</span>
-      </nav>
+      <Navbar rightLink={{ href: "/", label: "← Home" }} />
 
       {/* PROGRESS BAR */}
       <div style={{ height: "4px", background: "#E5E0D8" }}>
         <div style={{
-          height: "4px", background: "#E8894A",
+          height: "4px", background: "#1A4D2E",
           width: `${progress}%`,
           transition: "width 0.3s ease",
         }}/>
@@ -163,8 +146,8 @@ export default function Diagnostic() {
                 transition: "all 0.15s ease",
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "#E8894A";
-                (e.currentTarget as HTMLButtonElement).style.background = "#FDF3E7";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "#1A4D2E";
+                (e.currentTarget as HTMLButtonElement).style.background = "#F0FAF2";
               }}
               onMouseLeave={e => {
                 (e.currentTarget as HTMLButtonElement).style.borderColor = "#E5E0D8";
@@ -172,7 +155,7 @@ export default function Diagnostic() {
               }}
             >
               {opt.label}
-              <span style={{ color: "#E8894A", fontSize: "18px" }}>→</span>
+              <span style={{ color: "#1A4D2E", fontSize: "18px" }}>→</span>
             </button>
           ))}
         </div>
