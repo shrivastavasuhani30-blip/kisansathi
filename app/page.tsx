@@ -96,13 +96,14 @@ export default function Home() {
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {[
-            { icon: "📊", title: "Live मंडी भाव", desc: "Rajasthan, MP, UP — आज का सही दाम" },
-            { icon: "🏦", title: "Loan Rejection समझो", desc: "KCC, fasal, tractor — bank ने क्यों reject किया?" },
-            { icon: "🌾", title: "PM Kisan & Schemes", desc: "सरकारी योजनाओं की जानकारी और status check" },
-            { icon: "🌤️", title: "मौसम और फसल सलाह", desc: "अपने जिले का weather और कब क्या बोएं" },
-            { icon: "🔬", title: "फसल रोग पहचान", desc: "Photo upload करो, solution पाओ — जल्द आ रहा है" },
+            { icon: "📊", title: "Live मंडी भाव", desc: "Rajasthan, MP, UP — आज का सही दाम", href: "/mandi" },
+            { icon: "🏦", title: "Loan Rejection समझो", desc: "KCC, fasal, tractor — bank ने क्यों reject किया?", href: "/diagnostic" },
+            { icon: "🌾", title: "PM Kisan & Schemes", desc: "सरकारी योजनाओं की जानकारी और status check", href: "/schemes" },
+            { icon: "🌤️", title: "मौसम और फसल सलाह", desc: "अपने जिले का weather और कब क्या बोएं", href: "/weather" },
+            { icon: "🔬", title: "फसल रोग पहचान", desc: "Photo upload करो, solution पाओ — जल्द आ रहा है", href: "#" },
           ].map((f) => (
-            <div key={f.title} className="feature-card">
+            <Link key={f.title} href={f.href} style={{ textDecoration: "none" }}>
+            <div className="feature-card" style={{ cursor: "pointer" }}>
               <div style={{
                 fontSize: "24px", lineHeight: 1,
                 width: "40px", flexShrink: 0,
@@ -117,6 +118,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            </Link>
           ))}
         </div>
       </div>
