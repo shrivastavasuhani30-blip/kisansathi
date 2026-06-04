@@ -28,9 +28,10 @@ export default function Home() {
           <Image
             src="/kisansathi-logo.svg"
             alt="KisanSathi Logo"
-            width={100}
-            height={84}
+            width={72}
+            height={60}
             priority
+            style={{ borderRadius: "12px" }}
           />
         </div>
 
@@ -233,7 +234,7 @@ export default function Home() {
           सवाल है? सीधे WhatsApp पर पूछो
         </p>
         <a
-          href="https://wa.me/917000000000?text=Namaste%2C%20mujhe%20KisanSathi%20se%20madad%20chahiye"
+          href="https://wa.me/+91 6268146820?text=Namaste%2C%20mujhe%20KisanSathi%20se%20madad%20chahiye"
           target="_blank"
           rel="noopener noreferrer"
           className="whatsapp-btn"
