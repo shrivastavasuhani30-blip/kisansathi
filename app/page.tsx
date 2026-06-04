@@ -23,18 +23,6 @@ export default function Home() {
         background: "#FBF6EE",
       }}>
 
-        {/* Logo */}
-        <div className="fade-in-1" style={{ marginBottom: "16px" }}>
-          <Image
-            src="/kisansathi-logo.svg"
-            alt="KisanSathi Logo"
-            width={72}
-            height={60}
-            priority
-            style={{ borderRadius: "12px" }}
-          />
-        </div>
-
         {/* Live badge */}
         <div className="trust-badge fade-in-2">
           <span className="trust-dot" />
