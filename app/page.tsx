@@ -10,8 +10,6 @@ export default function Home() {
       {/* ── NAVBAR ── */}
       <Navbar rightLink={{ href: "/complaint", label: "शिकायत गाइड" }} />
 
-      {/* ── GOLD LINE under nav ── */}
-      <div className="gold-line" />
 
       {/* ── HERO ── */}
       <section style={{
@@ -95,22 +93,24 @@ export default function Home() {
       </section>
 
       {/* ── STATS STRIP ── */}
-      <div className="stats-strip">
-        <div className="stat-item">
-          <div className="stat-number">1,200+</div>
-          <div className="stat-label">किसान साथी</div>
-        </div>
-        <div className="stat-divider" />
-        <div className="stat-item">
-          <div className="stat-number">12</div>
-          <div className="stat-label">जिले covered</div>
-        </div>
-        <div className="stat-divider" />
-        <div className="stat-item">
-          <div className="stat-number">100%</div>
-          <div className="stat-label">Free · RBI-based</div>
-        </div>
-      </div>
+<div style={{ padding: "0 20px", maxWidth: "420px", margin: "0 auto 28px" }}>
+  <div className="stats-strip" style={{ borderRadius: "14px" }}>
+    <div className="stat-item">
+      <div className="stat-number">1,200+</div>
+      <div className="stat-label">किसान साथी</div>
+    </div>
+    <div className="stat-divider" />
+    <div className="stat-item">
+      <div className="stat-number">12</div>
+      <div className="stat-label">जिले covered</div>
+    </div>
+    <div className="stat-divider" />
+    <div className="stat-item">
+      <div className="stat-number">100%</div>
+      <div className="stat-label">Free · RBI-based</div>
+    </div>
+  </div>
+</div>
 
       {/* ── FEATURES ── */}
       <div style={{ padding: "24px 20px 0", maxWidth: "420px", margin: "0 auto" }}>
