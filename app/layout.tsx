@@ -51,6 +51,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="hi" className={`${dmSans.variable} h-full antialiased`}>
+      <head>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0D1F0D" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="KisanSathi" />
+</head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
