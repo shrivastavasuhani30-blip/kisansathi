@@ -13,9 +13,6 @@ const SCHEMES = [
     documents: ["Aadhaar card", "बैंक passbook", "ज़मीन के कागज़ (खसरा/खतौनी)"],
     link: "https://pmkisan.gov.in",
     linkLabel: "Status Check करें",
-    color: "#1A4D2E",
-    bg: "#F0FAF2",
-    border: "#B3DEC1",
   },
   {
     id: "pmfby",
@@ -27,9 +24,6 @@ const SCHEMES = [
     documents: ["Aadhaar", "बैंक खाता", "फसल बुवाई प्रमाण", "भूमि रिकॉर्ड"],
     link: "https://pmfby.gov.in",
     linkLabel: "Claim Status देखें",
-    color: "#8B4513",
-    bg: "#FDF3E7",
-    border: "#F5C4B3",
   },
   {
     id: "kcc",
@@ -41,9 +35,6 @@ const SCHEMES = [
     documents: ["Aadhaar / PAN", "ज़मीन के कागज़", "2 passport photos", "बैंक application form"],
     link: "/diagnostic",
     linkLabel: "Loan reject? कारण जानें",
-    color: "#1A3A6B",
-    bg: "#EEF2FF",
-    border: "#B3C3F5",
   },
   {
     id: "mksy",
@@ -55,9 +46,6 @@ const SCHEMES = [
     documents: ["PM Kisan registration number", "Aadhaar", "MP समग्र ID"],
     link: "https://mpfsts.mp.gov.in",
     linkLabel: "MP Portal देखें",
-    color: "#6B1A3A",
-    bg: "#FEF0F5",
-    border: "#F5B3CC",
   },
   {
     id: "soil",
@@ -69,9 +57,6 @@ const SCHEMES = [
     documents: ["Aadhaar", "खेत का विवरण"],
     link: "https://soilhealth.dac.gov.in",
     linkLabel: "Card Download करें",
-    color: "#5D4037",
-    bg: "#FFF8E1",
-    border: "#FFCC80",
   },
 ];
 
@@ -79,16 +64,17 @@ export default function SchemesPage() {
   const [expanded, setExpanded] = useState<string | null>("pmkisan");
 
   return (
-    <main style={{ minHeight: "100vh", background: "#FAF7F2", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+    <main style={{ minHeight: "100vh", background: "#FBF6EE", fontFamily: "'Hind', 'Noto Sans Devanagari', sans-serif" }}>
       <Navbar rightLink={{ href: "/", label: "← वापस" }} />
 
-      <section style={{ padding: "24px 24px", maxWidth: "480px", margin: "0 auto" }}>
+      <section style={{ padding: "24px 20px", maxWidth: "480px", margin: "0 auto" }}>
 
-        <div style={{ marginBottom: "24px" }}>
-          <p style={{ fontSize: "11px", color: "#5D7A5D", letterSpacing: "1px", textTransform: "uppercase", fontWeight: 600, marginBottom: "4px" }}>
-            सरकारी योजनाएं
+        {/* Header */}
+        <div style={{ marginBottom: "20px" }}>
+          <p style={{ fontSize: "11px", color: "#7A1C1C", letterSpacing: "1px", textTransform: "uppercase", fontWeight: 700, marginBottom: "4px" }}>
+            🌾 सरकारी योजनाएं
           </p>
-          <h1 style={{ fontSize: "24px", fontWeight: 700, color: "#1A1714", marginBottom: "4px" }}>
+          <h1 style={{ fontSize: "24px", fontWeight: 700, color: "#0D1F0D", marginBottom: "4px" }}>
             PM Kisan & Schemes
           </h1>
           <p style={{ fontSize: "13px", color: "#4A4540", opacity: 0.7 }}>
@@ -96,13 +82,18 @@ export default function SchemesPage() {
           </p>
         </div>
 
-        {/* Quick PM Kisan status check */}
+        {/* PM Kisan Status Check */}
         <div style={{ background: "#0D1F0D", borderRadius: "16px", padding: "18px", marginBottom: "20px" }}>
-          <p style={{ fontSize: "13px", color: "#C9A84C", fontWeight: 700, marginBottom: "6px" }}>⚡ PM Kisan Status जल्दी check करें</p>
-          <p style={{ fontSize: "12px", color: "#A8D5A2", marginBottom: "12px" }}>अपना Aadhaar number डालें और किश्त का status देखें</p>
+          <p style={{ fontSize: "13px", color: "#C9A84C", fontWeight: 700, marginBottom: "6px" }}>
+            ⚡ PM Kisan Status जल्दी check करें
+          </p>
+          <p style={{ fontSize: "12px", color: "#A8D5A2", marginBottom: "12px" }}>
+            Aadhaar number से किश्त का status देखें
+          </p>
           <a
             href="https://pmkisan.gov.in/BeneficiaryStatus.aspx"
-            target="_blank" rel="noopener noreferrer"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: "block", textAlign: "center",
               background: "#C9A84C", color: "#0D1F0D",
@@ -115,56 +106,71 @@ export default function SchemesPage() {
         </div>
 
         {/* Schemes list */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+        <p style={{
+          fontSize: "11px", fontWeight: 700, color: "#7A1C1C",
+          letterSpacing: "1.5px", textTransform: "uppercase",
+          marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px",
+        }}>
+          सभी योजनाएं
+          <span style={{ flex: 1, height: "1px", background: "#C9A84C", opacity: 0.4, display: "inline-block" }} />
+        </p>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {SCHEMES.map(scheme => (
             <div key={scheme.id} style={{
-              background: "white", border: `1px solid ${expanded === scheme.id ? scheme.border : "#E5E0D8"}`,
-              borderRadius: "16px", overflow: "hidden",
-              transition: "border-color 0.2s",
+              background: "white",
+              border: `1px solid ${expanded === scheme.id ? "#C9A84C" : "#E5E0D8"}`,
+              borderRadius: "14px", overflow: "hidden",
+              borderLeft: expanded === scheme.id ? "3px solid #C9A84C" : "3px solid transparent",
             }}>
-              {/* Header row */}
+              {/* Header */}
               <button
                 onClick={() => setExpanded(expanded === scheme.id ? null : scheme.id)}
                 style={{
                   width: "100%", background: "none", border: "none",
-                  padding: "16px", cursor: "pointer", fontFamily: "inherit",
+                  padding: "14px 16px", cursor: "pointer", fontFamily: "inherit",
                   display: "flex", alignItems: "center", gap: "12px", textAlign: "left",
                 }}
               >
-                <span style={{ fontSize: "28px", flexShrink: 0 }}>{scheme.icon}</span>
+                <span style={{ fontSize: "26px", flexShrink: 0 }}>{scheme.icon}</span>
                 <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: "14px", fontWeight: 700, color: "#1A1714", marginBottom: "2px" }}>{scheme.name}</p>
-                  <p style={{ fontSize: "13px", color: scheme.color, fontWeight: 600 }}>{scheme.amount}</p>
+                  <p style={{ fontSize: "13px", fontWeight: 700, color: "#0D1F0D", marginBottom: "2px" }}>
+                    {scheme.name}
+                  </p>
+                  <p style={{ fontSize: "12px", color: "#7A1C1C", fontWeight: 600 }}>
+                    {scheme.amount}
+                  </p>
                 </div>
-                <span style={{ fontSize: "16px", color: "#4A4540", opacity: 0.5 }}>
+                <span style={{ fontSize: "14px", color: "#C9A84C", fontWeight: 700 }}>
                   {expanded === scheme.id ? "▲" : "▼"}
                 </span>
               </button>
 
-              {/* Expanded content */}
+              {/* Expanded */}
               {expanded === scheme.id && (
-                <div style={{ padding: "0 16px 16px", borderTop: `1px solid ${scheme.border}` }}>
-                  <div style={{ background: scheme.bg, borderRadius: "10px", padding: "12px", margin: "12px 0" }}>
-                    <p style={{ fontSize: "13px", color: "#1A1714", lineHeight: 1.6 }}>{scheme.desc}</p>
+                <div style={{ padding: "0 16px 16px", borderTop: "1px solid #E5E0D8" }}>
+
+                  <div style={{ background: "#FBF6EE", borderRadius: "10px", padding: "12px", margin: "12px 0" }}>
+                    <p style={{ fontSize: "13px", color: "#1A1714", lineHeight: 1.65 }}>{scheme.desc}</p>
                   </div>
 
-                  <p style={{ fontSize: "11px", color: "#5D7A5D", fontWeight: 600, letterSpacing: "0.8px", textTransform: "uppercase", marginBottom: "8px" }}>
+                  <p style={{ fontSize: "10px", color: "#7A1C1C", fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "8px" }}>
                     कौन eligible है
                   </p>
                   {scheme.eligibility.map((e, i) => (
                     <div key={i} style={{ display: "flex", gap: "8px", marginBottom: "6px" }}>
                       <span style={{ color: "#27AE60", flexShrink: 0, fontWeight: 700 }}>✓</span>
-                      <span style={{ fontSize: "13px", color: "#4A4540" }}>{e}</span>
+                      <span style={{ fontSize: "12px", color: "#4A4540" }}>{e}</span>
                     </div>
                   ))}
 
-                  <p style={{ fontSize: "11px", color: "#5D7A5D", fontWeight: 600, letterSpacing: "0.8px", textTransform: "uppercase", marginBottom: "8px", marginTop: "14px" }}>
+                  <p style={{ fontSize: "10px", color: "#7A1C1C", fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "8px", marginTop: "14px" }}>
                     ज़रूरी कागज़
                   </p>
                   {scheme.documents.map((d, i) => (
                     <div key={i} style={{ display: "flex", gap: "8px", marginBottom: "5px" }}>
                       <span style={{ color: "#C9A84C", flexShrink: 0 }}>📄</span>
-                      <span style={{ fontSize: "13px", color: "#4A4540" }}>{d}</span>
+                      <span style={{ fontSize: "12px", color: "#4A4540" }}>{d}</span>
                     </div>
                   ))}
 
@@ -174,7 +180,7 @@ export default function SchemesPage() {
                     rel="noopener noreferrer"
                     style={{
                       display: "block", textAlign: "center",
-                      background: scheme.color, color: "white",
+                      background: "#7A1C1C", color: "white",
                       fontSize: "13px", fontWeight: 700, padding: "12px",
                       borderRadius: "10px", textDecoration: "none", marginTop: "14px",
                     }}
@@ -187,15 +193,14 @@ export default function SchemesPage() {
           ))}
         </div>
 
-        {/* WhatsApp help */}
+        {/* WhatsApp */}
         <a
           href="https://wa.me/916268146820?text=Namaste%2C%20mujhe%20sarkari%20yojana%20ke%20baare%20mein%20help%20chahiye"
           target="_blank" rel="noopener noreferrer"
           style={{
             display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
             background: "#25D366", color: "white", fontSize: "14px", fontWeight: 600,
-            padding: "14px", borderRadius: "14px", textDecoration: "none",
-            boxShadow: "0 3px 0 #1aaa4e", marginTop: "20px",
+            padding: "14px", borderRadius: "14px", textDecoration: "none", marginTop: "20px",
           }}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
@@ -203,6 +208,7 @@ export default function SchemesPage() {
           </svg>
           Scheme में मदद चाहिए? WhatsApp करें
         </a>
+
       </section>
     </main>
   );
