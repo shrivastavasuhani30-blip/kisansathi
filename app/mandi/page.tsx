@@ -1,95 +1,119 @@
 "use client";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Navbar from "../components/Navbar";
 
-const CROPS = ["गेहूं", "धान", "सोयाबीन", "मक्का", "सरसों", "चना", "अरहर", "प्याज", "आलू", "टमाटर"];
-const STATES = ["Madhya Pradesh", "Uttar Pradesh", "Rajasthan", "Maharashtra", "Punjab"];
+const CROPS = ["Wheat", "Paddy(Common)", "Soyabean", "Maize", "Mustard", "Gram", "Arhar(Tur)", "Onion", "Potato", "Tomato"];
 
-// Static mandi data (fallback / demo) — replace with live API when ready
-const MANDI_DATA: Record<string, { mandi: string; state: string; price: number; unit: string; change: number }[]> = {
-  "गेहूं": [
-    { mandi: "इंदौर", state: "MP", price: 2280, unit: "₹/क्विंटल", change: +40 },
-    { mandi: "भोपाल", state: "MP", price: 2250, unit: "₹/क्विंटल", change: -20 },
-    { mandi: "लखनऊ", state: "UP", price: 2310, unit: "₹/क्विंटल", change: +15 },
-    { mandi: "जयपुर", state: "RJ", price: 2290, unit: "₹/क्विंटल", change: +30 },
-    { mandi: "सागर", state: "MP", price: 2240, unit: "₹/क्विंटल", change: -10 },
-  ],
-  "सोयाबीन": [
-    { mandi: "इंदौर", state: "MP", price: 4450, unit: "₹/क्विंटल", change: +80 },
-    { mandi: "उज्जैन", state: "MP", price: 4380, unit: "₹/क्विंटल", change: +50 },
-    { mandi: "नागपुर", state: "MH", price: 4520, unit: "₹/क्विंटल", change: +100 },
-    { mandi: "कोटा", state: "RJ", price: 4400, unit: "₹/क्विंटल", change: +60 },
-  ],
-  "धान": [
-    { mandi: "रायपुर", state: "CG", price: 2183, unit: "₹/क्विंटल", change: 0 },
-    { mandi: "लखनऊ", state: "UP", price: 2200, unit: "₹/क्विंटल", change: +17 },
-    { mandi: "पटना", state: "BR", price: 2150, unit: "₹/क्विंटल", change: -33 },
-  ],
-  "सरसों": [
-    { mandi: "जयपुर", state: "RJ", price: 5200, unit: "₹/क्विंटल", change: +120 },
-    { mandi: "भरतपुर", state: "RJ", price: 5150, unit: "₹/क्विंटल", change: +90 },
-    { mandi: "आगरा", state: "UP", price: 5180, unit: "₹/क्विंटल", change: +110 },
-  ],
-  "मक्का": [
-    { mandi: "इंदौर", state: "MP", price: 1980, unit: "₹/क्विंटल", change: -30 },
-    { mandi: "पटना", state: "BR", price: 2020, unit: "₹/क्विंटल", change: +10 },
-    { mandi: "लुधियाना", state: "PB", price: 2100, unit: "₹/क्विंटल", change: +40 },
-  ],
-  "चना": [
-    { mandi: "इंदौर", state: "MP", price: 5600, unit: "₹/क्विंटल", change: +200 },
-    { mandi: "जयपुर", state: "RJ", price: 5550, unit: "₹/क्विंटल", change: +180 },
-    { mandi: "नागपुर", state: "MH", price: 5650, unit: "₹/क्विंटल", change: +220 },
-  ],
-  "अरहर": [
-    { mandi: "नागपुर", state: "MH", price: 7200, unit: "₹/क्विंटल", change: +300 },
-    { mandi: "इंदौर", state: "MP", price: 7100, unit: "₹/क्विंटल", change: +250 },
-  ],
-  "प्याज": [
-    { mandi: "नासिक", state: "MH", price: 1200, unit: "₹/क्विंटल", change: -150 },
-    { mandi: "इंदौर", state: "MP", price: 1350, unit: "₹/क्विंटल", change: -80 },
-  ],
-  "आलू": [
-    { mandi: "आगरा", state: "UP", price: 900, unit: "₹/क्विंटल", change: +50 },
-    { mandi: "इंदौर", state: "MP", price: 950, unit: "₹/क्विंटल", change: +40 },
-  ],
-  "टमाटर": [
-    { mandi: "इंदौर", state: "MP", price: 2500, unit: "₹/क्विंटल", change: +800 },
-    { mandi: "नासिक", state: "MH", price: 2200, unit: "₹/क्विंटल", change: +600 },
-  ],
+const CROP_HINDI: Record<string, string> = {
+  "Wheat": "गेहूं",
+  "Paddy(Common)": "धान",
+  "Soyabean": "सोयाबीन",
+  "Maize": "मक्का",
+  "Mustard": "सरसों",
+  "Gram": "चना",
+  "Arhar(Tur)": "अरहर",
+  "Onion": "प्याज",
+  "Potato": "आलू",
+  "Tomato": "टमाटर",
 };
 
-export default function MandiPage() {
-  const [selectedCrop, setSelectedCrop] = useState("गेहूं");
-  const [lastUpdated] = useState(() => {
-    const now = new Date();
-    return now.toLocaleDateString("hi-IN", { day: "numeric", month: "long", year: "numeric" });
-  });
+const MSP: Record<string, number> = {
+  "Wheat": 2275,
+  "Paddy(Common)": 2183,
+  "Soyabean": 4600,
+  "Mustard": 5650,
+  "Maize": 2090,
+  "Gram": 5440,
+  "Arhar(Tur)": 7000,
+};
 
-  const data = MANDI_DATA[selectedCrop] || [];
-  const avgPrice = data.length ? Math.round(data.reduce((s, d) => s + d.price, 0) / data.length) : 0;
-  const msp: Record<string, number> = {
-    "गेहूं": 2275, "धान": 2183, "सोयाबीन": 4600, "सरसों": 5650,
-    "मक्का": 2090, "चना": 5440, "अरहर": 7000,
-  };
+const API_KEY = process.env.NEXT_PUBLIC_MANDI_API_KEY;
+
+interface MandiRecord {
+  mandi: string;
+  state: string;
+  price: number;
+  min: number;
+  max: number;
+  unit: string;
+}
+
+export default function MandiPage() {
+  const [selectedCrop, setSelectedCrop] = useState("Wheat");
+  const [data, setData] = useState<MandiRecord[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [lastUpdated, setLastUpdated] = useState("");
+
+  useEffect(() => {
+    fetchMandi(selectedCrop);
+  }, [selectedCrop]);
+
+  async function fetchMandi(crop: string) {
+    setLoading(true);
+    setError("");
+    setData([]);
+    try {
+      const url = `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&filters[commodity]=${encodeURIComponent(crop)}&limit=20`;
+      const res = await fetch(url);
+      const json = await res.json();
+
+      if (!json.records || json.records.length === 0) {
+        setError("आज इस फसल का डेटा उपलब्ध नहीं है। कल फिर देखें।");
+        setLoading(false);
+        return;
+      }
+
+      const records: MandiRecord[] = json.records.map((r: any) => ({
+        mandi: r.market || r.apmc || "—",
+        state: r.state || "—",
+        price: Math.round(Number(r.modal_price) || Number(r.min_price) || 0),
+        min: Math.round(Number(r.min_price) || 0),
+        max: Math.round(Number(r.max_price) || 0),
+        unit: "₹/क्विंटल",
+      }));
+
+      // Sort by modal price descending
+      records.sort((a, b) => b.price - a.price);
+
+      setData(records);
+      setLastUpdated(new Date().toLocaleDateString("hi-IN", {
+        day: "numeric", month: "long", hour: "2-digit", minute: "2-digit"
+      }));
+    } catch (e) {
+      setError("डेटा लोड नहीं हो सका। इंटरनेट चेक करें और दोबारा कोशिश करें।");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const avgPrice = data.length
+    ? Math.round(data.reduce((s, d) => s + d.price, 0) / data.length)
+    : 0;
+
+  const maxPrice = data.length ? Math.max(...data.map(d => d.price)) : 0;
+  const minPrice = data.length ? Math.min(...data.map(d => d.price)) : 0;
 
   return (
-    <main style={{ minHeight: "100vh", background: "#FAF7F2", fontFamily: "var(--font-dm-sans), 'DM Sans', sans-serif" }}>
+    <main style={{ minHeight: "100vh", background: "#FBF6EE", fontFamily: "'Hind', 'Noto Sans Devanagari', sans-serif" }}>
       <Navbar rightLink={{ href: "/", label: "← वापस" }} />
 
-      <section style={{ padding: "28px 24px", maxWidth: "480px", margin: "0 auto" }}>
+      <section style={{ padding: "24px 20px", maxWidth: "480px", margin: "0 auto" }}>
 
         {/* Header */}
-        <div style={{ marginBottom: "24px" }}>
-          <p style={{ fontSize: "11px", color: "#5D7A5D", letterSpacing: "1px", textTransform: "uppercase", fontWeight: 600, marginBottom: "6px" }}>
-            आज का मंडी भाव
+        <div style={{ marginBottom: "20px" }}>
+          <p style={{ fontSize: "11px", color: "#7A1C1C", letterSpacing: "1px", textTransform: "uppercase", fontWeight: 700, marginBottom: "4px" }}>
+            📊 आज का मंडी भाव
           </p>
-          <h1 style={{ fontSize: "26px", fontWeight: 700, color: "#1A1714", marginBottom: "4px" }}>
+          <h1 style={{ fontSize: "26px", fontWeight: 700, color: "#0D1F0D", marginBottom: "4px" }}>
             Live मंडी Rates
           </h1>
-          <p style={{ fontSize: "12px", color: "#4A4540", opacity: 0.6 }}>
-            अपडेट: {lastUpdated} · Rajasthan, MP, UP
-          </p>
+          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <span style={{ width: "6px", height: "6px", background: "#4CAF50", borderRadius: "50%", display: "inline-block" }} />
+            <p style={{ fontSize: "12px", color: "#4A4540" }}>
+              {lastUpdated ? `अपडेट: ${lastUpdated}` : "data.gov.in से live डेटा"}
+            </p>
+          </div>
         </div>
 
         {/* Crop selector */}
@@ -97,24 +121,19 @@ export default function MandiPage() {
           <p style={{ fontSize: "12px", color: "#4A4540", fontWeight: 600, marginBottom: "10px" }}>फसल चुनें:</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
             {CROPS.map(crop => (
-              <button
-                key={crop}
-                onClick={() => setSelectedCrop(crop)}
-                style={{
-                  padding: "7px 14px", borderRadius: "20px", border: "1.5px solid",
-                  borderColor: selectedCrop === crop ? "#1A4D2E" : "#E5E0D8",
-                  background: selectedCrop === crop ? "#1A4D2E" : "white",
-                  color: selectedCrop === crop ? "white" : "#4A4540",
-                  fontSize: "13px", fontWeight: 600, cursor: "pointer",
-                  fontFamily: "inherit",
-                }}
-              >{crop}</button>
+              <button key={crop} onClick={() => setSelectedCrop(crop)} style={{
+                padding: "7px 14px", borderRadius: "20px", border: "1.5px solid",
+                borderColor: selectedCrop === crop ? "#0D1F0D" : "#E5E0D8",
+                background: selectedCrop === crop ? "#0D1F0D" : "white",
+                color: selectedCrop === crop ? "#C9A84C" : "#4A4540",
+                fontSize: "13px", fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+              }}>{CROP_HINDI[crop]}</button>
             ))}
           </div>
         </div>
 
         {/* MSP banner */}
-        {msp[selectedCrop] && (
+        {MSP[selectedCrop] && (
           <div style={{
             background: "#F0FAF2", border: "1px solid #B3DEC1",
             borderRadius: "12px", padding: "12px 16px",
@@ -122,8 +141,10 @@ export default function MandiPage() {
             marginBottom: "16px",
           }}>
             <div>
-              <p style={{ fontSize: "11px", color: "#27500A", fontWeight: 600, letterSpacing: "0.5px" }}>सरकारी MSP 2024-25</p>
-              <p style={{ fontSize: "20px", fontWeight: 700, color: "#1A4D2E" }}>₹{msp[selectedCrop].toLocaleString("hi-IN")}</p>
+              <p style={{ fontSize: "11px", color: "#27500A", fontWeight: 600 }}>सरकारी MSP 2024-25</p>
+              <p style={{ fontSize: "20px", fontWeight: 700, color: "#1A4D2E" }}>
+                ₹{MSP[selectedCrop].toLocaleString("hi-IN")}
+              </p>
             </div>
             <div style={{ fontSize: "12px", color: "#27500A", textAlign: "right" }}>
               <p>प्रति क्विंटल</p>
@@ -132,52 +153,99 @@ export default function MandiPage() {
           </div>
         )}
 
-        {/* Avg price */}
-        {avgPrice > 0 && (
-          <div style={{
-            background: "#0D1F0D", borderRadius: "12px",
-            padding: "14px 16px", display: "flex",
-            justifyContent: "space-between", alignItems: "center", marginBottom: "16px",
-          }}>
-            <div>
-              <p style={{ fontSize: "11px", color: "#A8D5A2", marginBottom: "2px" }}>{selectedCrop} — औसत बाज़ार भाव</p>
-              <p style={{ fontSize: "24px", fontWeight: 700, color: "#C9A84C" }}>₹{avgPrice.toLocaleString("hi-IN")}</p>
-            </div>
-            <p style={{ fontSize: "11px", color: "#5D7A5D" }}>प्रति क्विंटल</p>
+        {/* Loading */}
+        {loading && (
+          <div style={{ textAlign: "center", padding: "40px", color: "#4A4540" }}>
+            <div style={{ fontSize: "32px", marginBottom: "12px" }}>🌾</div>
+            <p style={{ fontSize: "14px" }}>मंडी भाव लोड हो रहा है...</p>
           </div>
         )}
 
-        {/* Mandi list */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
-          {data.map((d, i) => (
-            <div key={i} style={{
-              background: "white", border: "1px solid #E5E0D8",
-              borderRadius: "14px", padding: "14px 16px",
-              display: "flex", justifyContent: "space-between", alignItems: "center",
-            }}>
-              <div>
-                <p style={{ fontSize: "15px", fontWeight: 700, color: "#1A1714" }}>{d.mandi}</p>
-                <p style={{ fontSize: "12px", color: "#4A4540", opacity: 0.6 }}>{d.state} मंडी</p>
-              </div>
-              <div style={{ textAlign: "right" }}>
-                <p style={{ fontSize: "17px", fontWeight: 700, color: "#1A4D2E" }}>₹{d.price.toLocaleString("hi-IN")}</p>
-                <p style={{
-                  fontSize: "12px", fontWeight: 600,
-                  color: d.change > 0 ? "#27AE60" : d.change < 0 ? "#E74C3C" : "#4A4540",
-                }}>
-                  {d.change > 0 ? `▲ +${d.change}` : d.change < 0 ? `▼ ${d.change}` : "— कोई बदलाव नहीं"}
-                </p>
-              </div>
-            </div>
-          ))}
+        {/* Error */}
+        {error && !loading && (
+          <div style={{
+            background: "#FDF3E7", border: "1px solid #F5C4B3",
+            borderRadius: "12px", padding: "16px", textAlign: "center", marginBottom: "16px",
+          }}>
+            <p style={{ fontSize: "13px", color: "#712B13", marginBottom: "10px" }}>{error}</p>
+            <button onClick={() => fetchMandi(selectedCrop)} style={{
+              padding: "8px 16px", background: "#7A1C1C", color: "white",
+              border: "none", borderRadius: "8px", fontSize: "12px", cursor: "pointer",
+            }}>दोबारा कोशिश करें</button>
+          </div>
+        )}
 
-          {data.length === 0 && (
-            <div style={{ textAlign: "center", padding: "40px", color: "#4A4540", opacity: 0.5 }}>
-              <p style={{ fontSize: "32px", marginBottom: "8px" }}>🌾</p>
-              <p>इस फसल का डेटा जल्द आएगा</p>
+        {/* Stats */}
+        {!loading && data.length > 0 && (
+          <>
+            {/* Average price */}
+            <div style={{
+              background: "#0D1F0D", borderRadius: "12px",
+              padding: "14px 16px", marginBottom: "12px",
+            }}>
+              <p style={{ fontSize: "11px", color: "#A8D5A2", marginBottom: "4px" }}>
+                {CROP_HINDI[selectedCrop]} — औसत बाज़ार भाव ({data.length} मंडियां)
+              </p>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+                <p style={{ fontSize: "28px", fontWeight: 700, color: "#C9A84C" }}>
+                  ₹{avgPrice.toLocaleString("hi-IN")}
+                </p>
+                <p style={{ fontSize: "11px", color: "#5D7A5D" }}>प्रति क्विंटल</p>
+              </div>
+              <div style={{ display: "flex", gap: "16px", marginTop: "10px", paddingTop: "10px", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+                <div>
+                  <p style={{ fontSize: "10px", color: "#5D7A5D" }}>सबसे कम</p>
+                  <p style={{ fontSize: "13px", fontWeight: 700, color: "#E74C3C" }}>₹{minPrice.toLocaleString("hi-IN")}</p>
+                </div>
+                <div>
+                  <p style={{ fontSize: "10px", color: "#5D7A5D" }}>सबसे ज़्यादा</p>
+                  <p style={{ fontSize: "13px", fontWeight: 700, color: "#27AE60" }}>₹{maxPrice.toLocaleString("hi-IN")}</p>
+                </div>
+                <div>
+                  <p style={{ fontSize: "10px", color: "#5D7A5D" }}>MSP से तुलना</p>
+                  <p style={{ fontSize: "13px", fontWeight: 700, color: avgPrice >= (MSP[selectedCrop] || 0) ? "#27AE60" : "#E74C3C" }}>
+                    {MSP[selectedCrop]
+                      ? avgPrice >= MSP[selectedCrop]
+                        ? `▲ +₹${(avgPrice - MSP[selectedCrop]).toLocaleString("hi-IN")}`
+                        : `▼ -₹${(MSP[selectedCrop] - avgPrice).toLocaleString("hi-IN")}`
+                      : "—"}
+                  </p>
+                </div>
+              </div>
             </div>
-          )}
-        </div>
+
+            {/* Mandi list */}
+            <p style={{ fontSize: "12px", color: "#7A1C1C", fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "10px" }}>
+              मंडी वार भाव
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
+              {data.map((d, i) => (
+                <div key={i} style={{
+                  background: "white", borderRadius: "12px", padding: "13px 15px",
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
+                  borderLeft: `3px solid ${d.price === maxPrice ? "#27AE60" : d.price === minPrice ? "#E74C3C" : "#C9A84C"}`,
+                }}>
+                  <div>
+                    <p style={{ fontSize: "14px", fontWeight: 700, color: "#0D1F0D" }}>{d.mandi}</p>
+                    <p style={{ fontSize: "11px", color: "#4A4540", opacity: 0.7 }}>{d.state}</p>
+                    <p style={{ fontSize: "10px", color: "#888", marginTop: "2px" }}>
+                      ₹{d.min.toLocaleString()} – ₹{d.max.toLocaleString()}
+                    </p>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <p style={{ fontSize: "17px", fontWeight: 700, color: "#0D1F0D" }}>
+                      ₹{d.price.toLocaleString("hi-IN")}
+                    </p>
+                    <p style={{ fontSize: "10px", color: "#888" }}>modal price</p>
+                    {d.price === maxPrice && (
+                      <span style={{ fontSize: "10px", background: "#E8F5E9", color: "#27AE60", padding: "2px 6px", borderRadius: "8px", fontWeight: 700 }}>सबसे ज़्यादा ⭐</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
 
         {/* WhatsApp CTA */}
         <a
@@ -187,7 +255,7 @@ export default function MandiPage() {
             display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
             background: "#25D366", color: "white", fontSize: "14px", fontWeight: 600,
             padding: "14px", borderRadius: "14px", textDecoration: "none",
-            boxShadow: "0 3px 0 #1aaa4e", marginBottom: "12px",
+            marginBottom: "12px",
           }}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
@@ -196,7 +264,7 @@ export default function MandiPage() {
           WhatsApp पर रोज़ भाव पाएं
         </a>
         <p style={{ fontSize: "11px", color: "#4A4540", opacity: 0.5, textAlign: "center" }}>
-          * भाव सांकेतिक हैं। खरीद-बिक्री से पहले स्थानीय मंडी से confirm करें।
+          स्रोत: data.gov.in · Agmarknet · भाव सांकेतिक हैं, खरीद-बिक्री से पहले स्थानीय मंडी से confirm करें
         </p>
       </section>
     </main>
