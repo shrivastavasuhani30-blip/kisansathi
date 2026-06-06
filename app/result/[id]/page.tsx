@@ -87,9 +87,8 @@ const results: Record<string, {
 
 export default function ResultPage() {
   const params = useParams();
-  const slug = params.slug as string;
-  const result = results[slug];
-
+  const slug = params.id as string;
+const result = results[slug];
   if (!result) {
     return (
       <main style={{ minHeight: "100vh", background: "#FBF6EE", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px" }}>
