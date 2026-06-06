@@ -189,7 +189,7 @@ export default function SchemesPage() {
 
         {/* WhatsApp help */}
         <a
-          href="https://wa.me/917000000000?text=Namaste%2C%20mujhe%20sarkari%20yojana%20ke%20baare%20mein%20help%20chahiye"
+          href="https://wa.me/916268146820?text=Namaste%2C%20mujhe%20sarkari%20yojana%20ke%20baare%20mein%20help%20chahiye"
           target="_blank" rel="noopener noreferrer"
           style={{
             display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",

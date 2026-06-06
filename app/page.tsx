@@ -222,7 +222,7 @@ export default function Home() {
           सवाल है? सीधे WhatsApp पर पूछो
         </p>
         <a
-          href="https://wa.me/+91 6268146820?text=Namaste%2C%20mujhe%20KisanSathi%20se%20madad%20chahiye"
+          href="https://wa.me/916268146820?text=Namaste%2C%20mujhe%20KisanSathi%20se%20madad%20chahiye"
           target="_blank"
           rel="noopener noreferrer"
           className="whatsapp-btn"

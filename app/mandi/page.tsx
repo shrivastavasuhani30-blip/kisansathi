@@ -249,7 +249,7 @@ export default function MandiPage() {
 
         {/* WhatsApp CTA */}
         <a
-          href="https://wa.me/917000000000?text=Namaste%2C%20mujhe%20aaj%20ka%20mandi%20bhav%20chahiye"
+          href="https://wa.me/916268146820?text=Namaste%2C%20mujhe%20aaj%20ka%20mandi%20bhav%20chahiye"
           target="_blank" rel="noopener noreferrer"
           style={{
             display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
