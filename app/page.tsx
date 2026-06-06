@@ -24,7 +24,7 @@ export default function Home() {
         {/* Live badge */}
         <div className="trust-badge fade-in-2">
           <span className="trust-dot" />
-          1,200+ किसान जुड़ चुके हैं · बिल्कुल Free
+       अभी Launch हुआ · बिल्कुल Free
         </div>
 
         {/* Headline */}
