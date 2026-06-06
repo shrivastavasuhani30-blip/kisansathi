@@ -93,19 +93,23 @@ export default function Home() {
       </section>
 
       {/* ── STATS STRIP ── */}
-<div className="stat-item">
-  <div className="stat-number">5</div>
-  <div className="stat-label">सरकारी योजनाएं</div>
-</div>
-<div className="stat-divider" />
-<div className="stat-item">
-  <div className="stat-number">3</div>
-  <div className="stat-label">राज्य — MP, UP, RJ</div>
-</div>
-<div className="stat-divider" />
-<div className="stat-item">
-  <div className="stat-number">100%</div>
-  <div className="stat-label">Free · RBI-based</div>
+<div style={{ padding: "0 20px", maxWidth: "420px", margin: "0 auto 28px" }}>
+  <div className="stats-strip" style={{ borderRadius: "14px" }}>
+    <div className="stat-item">
+      <div className="stat-number">5</div>
+      <div className="stat-label">सरकारी योजनाएं</div>
+    </div>
+    <div className="stat-divider" />
+    <div className="stat-item">
+      <div className="stat-number">3</div>
+      <div className="stat-label">राज्य — MP, UP, RJ</div>
+    </div>
+    <div className="stat-divider" />
+    <div className="stat-item">
+      <div className="stat-number">100%</div>
+      <div className="stat-label">Free · RBI-based</div>
+    </div>
+  </div>
 </div>
 
       {/* ── FEATURES ── */}
