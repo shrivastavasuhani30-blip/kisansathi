@@ -259,3 +259,29 @@ body {
 .fade-in-3 { animation-delay: 0.3s; opacity: 0; animation: fadeInUp 0.5s ease 0.3s forwards; }
 .fade-in-4 { animation-delay: 0.4s; opacity: 0; animation: fadeInUp 0.5s ease 0.4s forwards; }
 .fade-in-5 { animation-delay: 0.5s; opacity: 0; animation: fadeInUp 0.5s ease 0.5s forwards; }
+/* ── SCROLL ANIMATIONS ── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  animation: slideUp 0.5s ease forwards;
+}
+
+/* Card hover lift */
+.feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  cursor: pointer;
+}
+
+/* Button press feel */
+.cta-primary:active {
+  transform: scale(0.98);
+}
+
+.cta-secondary:active {
+  transform: scale(0.98);
+}
