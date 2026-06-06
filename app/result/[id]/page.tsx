@@ -92,12 +92,42 @@ export default function ResultPage() {
 
   if (!result) {
     return (
-      <main style={{ minHeight: "100vh", background: "#FAF7F2", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ color: "#4A4540" }}>Result nahi mila. Wapas jao.</p>
+      <main style={{ minHeight: "100vh", background: "#FBF6EE", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px" }}>
+        <div style={{ textAlign: "center", maxWidth: "320px" }}>
+          <div style={{ fontSize: "48px", marginBottom: "16px" }}>🌾</div>
+          <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#0D1F0D", marginBottom: "8px" }}>
+            कोई result नहीं मिला
+          </h2>
+          <p style={{ fontSize: "13px", color: "#4A4540", lineHeight: 1.65, marginBottom: "24px" }}>
+            आपका जवाब हमारे system में नहीं मिला। कोई बात नहीं — दोबारा कोशिश करें!
+          </p>
+          <Link href="/diagnostic" style={{
+            display: "block", background: "#7A1C1C", color: "white",
+            padding: "14px", borderRadius: "12px", textDecoration: "none",
+            fontSize: "14px", fontWeight: 700, marginBottom: "10px",
+          }}>
+            दोबारा कोशिश करें →
+          </Link>
+          <Link href="/" style={{
+            display: "block", background: "white", color: "#0D1F0D",
+            padding: "12px", borderRadius: "12px", textDecoration: "none",
+            fontSize: "13px", border: "1.5px solid #0D1F0D",
+          }}>
+            Homepage पर जाएं
+          </Link>
+          <a href="https://wa.me/916268146820?text=Namaste%2C%20mujhe%20loan%20result%20mein%20madad%20chahiye"
+            target="_blank" rel="noopener noreferrer"
+            style={{
+              display: "block", background: "#25D366", color: "white",
+              padding: "12px", borderRadius: "12px", textDecoration: "none",
+              fontSize: "13px", fontWeight: 600, marginTop: "10px",
+            }}>
+            WhatsApp पर मदद लो 💬
+          </a>
+        </div>
       </main>
     );
   }
-
   return (
     <main style={{ minHeight: "100vh", background: "#FAF7F2", fontFamily: "'DM Sans', sans-serif" }}>
 
