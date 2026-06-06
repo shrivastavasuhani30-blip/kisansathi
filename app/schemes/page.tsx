@@ -91,7 +91,7 @@ export default function SchemesPage() {
             Aadhaar number से किश्त का status देखें
           </p>
           <a
-            href="https://pmkisan.gov.in/BeneficiaryStatus.aspx"
+            href= "https://pmkisan.gov.in"
             target="_blank"
             rel="noopener noreferrer"
             style={{
