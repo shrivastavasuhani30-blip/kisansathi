@@ -36,7 +36,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: 'https://kisansathi-rjmv.vercel.app/blog/kcc-loan-reject',
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
+     priority: 0.8,
+    },
+    {
+      url: 'https://kisansathi-rjmv.vercel.app/blog/mandi-bhav-mp',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
     },
   ]
 }
